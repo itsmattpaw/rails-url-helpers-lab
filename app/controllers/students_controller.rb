@@ -6,6 +6,15 @@ class StudentsController < ApplicationController
   end
 
   def show
+    set_student
+    @student.active ? @status = "active" : @status = "inactive"
+  end
+
+  def activate
+    set_student
+    @student.active = !@student.active
+    @student.save
+    render :show, locales: {id: @student.id}
   end
 
   private
